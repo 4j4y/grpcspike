@@ -1,0 +1,18 @@
+syntax = "proto3";
+//remove this
+option java_package = 'spikegrpc';
+option java_multiple_files = true;
+
+package spikegrpc;
+
+service SpikeGRPC {
+    rpc getHello (Name) returns (GreetingMessage) {};
+}
+
+message Name {
+    string name = 1;
+}
+
+message GreetingMessage {
+    string message = 1;
+}

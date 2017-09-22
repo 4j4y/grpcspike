@@ -5,6 +5,7 @@ import spikegrpc.Name;
 import spikegrpc.SpikeGRPCGrpc;
 import spikegrpc.SpikeGRPCGrpc.SpikeGRPCBlockingStub;
 
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 
@@ -17,7 +18,7 @@ public class SpikeGRPCClient {
     private SpikeGRPCBlockingStub blockingStub;
 
     public SpikeGRPCClient(String hostIP, int port) {
-        ManagedChannelBuilder<?> managedChannelBuilder = ManagedChannelBuilder.forAddress(hostIP,port)
+        ManagedChannelBuilder<?> managedChannelBuilder = ManagedChannelBuilder.forAddress(hostIP, port)
                 .usePlaintext(true);
         this.channel = managedChannelBuilder.build();
         this.blockingStub = SpikeGRPCGrpc.newBlockingStub(this.channel);
@@ -30,7 +31,11 @@ public class SpikeGRPCClient {
 
     public static void main(String[] args) {
         SpikeGRPCClient spikeGRPCClient = new SpikeGRPCClient("localhost", 8980);
-        spikeGRPCClient.getHello("Ajay");
+        while (true) {
+            Scanner s = new Scanner(System.in);
+            String name = s.nextLine();
+            spikeGRPCClient.getHello(name);
+        }
     }
 
     private void getHello(String name) {
